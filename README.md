@@ -1,6 +1,8 @@
 # About
 
-TODO
+Similarity search is a key operation in Content-based multimedia retrieval (CBMR) applications. Online CBMR applications, which are the focus of this work, perform a large number of search operations on dynamic datasets, which are updated concurrently with the search operations at run-time. Additionally, the frequency of search and data insertion operations is also dynamic, resulting in non-constant workloads. Such systems which rely on similarity search are required to fulfill these demands while also offering low response times. Thus, it is common for the computing demands in such applications with large datasets to exceed the processing power of a single computer, motivating the usage of large-scale compute solutions. As such, we propose in this work a distributed memory parallelization of similarity search that addresses the mentioned challenges. Our solution employs the efficient Inverted File System with an Asymmetric Distance Computation algorithm (IVFADC) as the baseline, which is extended here to support dynamic datasets. Further, a dynamic resource management algorithm, called Multi-Stream Adaptation (MS-ADAPT) was also proposed. It allows run-time changes on resource assignments with the goal of minimizing response times. We have evaluated our system solution with multiple data partitioning strategies using up to 160 compute nodes and a dataset with 344 billion multimedia descriptors. Our experiments demonstrate superlinear scalability for the Spatial-Aware data partition algorithms employed, with MS-ADAPT outperforming the best static approach (oracle) by improving the response times up to 32× on high-load cases.
+
+Keywords: Online Multimedia Similarity Search, Approximate Nearest Neighbors Search, Product Quantization ANN, Distributed Computing
 
 # Dependencies
 - [Cmake < 2.8](https://cmake.org/install/)
@@ -122,37 +124,3 @@ Params:
   
 - SCALE: Use to amplify or reduce dataset. 1 is ta neutral size. (...) 0.5=dataset_size x 0.5; 1=dataset_size; 2=dataset_size x 2; 3=dataset_size x 4 (...)
 
-# Artigos p/ leitura
-
-- Product Quantization for Nearest Neighbor Search 
-  - Artigo inicial sobre IVFADC - base para o restante das leituras.
-  
-- Fast approximate nearest neighbors with automatic algorithm configuration
-  - FLANN é uma das principais referências da área.
-  
-- http://ann-benchmarks.com/index.html
-  - Framework para avaliação de algoritmos ANN
- 
-- Large-scale parallel similarity search with Product Quantization for online multimedia services
-  - Nosso trabalho em paralelização do IVFADC para memória distribuída.
-  
-- Approximate similarity search for online multimedia services on distributed CPU-GPU platforms
-  - Busca multimedia usando CPU-GPU com algoritmo multicurves.
-  
-- Billion-scale similarity search with GPUs
-  - IVFADC em GPU.
-
-- The Inverted Multi-Index, IEEE Transactions on Pattern Analysis and Machine Intelligence 37  
-  - Mudança no IVFADC, múltiplos índices como uma maneira alternativa de achar pontos.
-
-- Locally Optimized Product Quantization for Approximate Nearest Neighbor Search
-  - Per cell quantizer.
-
-- Polysemous codes, in: B. Leibe, J. Matas, N. Sebe, M. Welling (Eds.), Computer Vision – ECCV 2016
-  - Estratégia interessante para representação de dados compactados.
-
-- Streaming Similarity Search over one Billion Tweets using Parallel Locality-Sensitive Hashing
-  - Busca por similaridade em streaming data usando LSH.
-  
-- Deep Product Quantization Module for Efficient Image Retrieval
-  - Deep learning in IVFADC.
