@@ -1,0 +1,40 @@
+#!/bin/sh
+
+TESTPATH="results"
+OUTPATH="load_factor_exploration"
+mkdir -p $TESTPATH
+mkdir -p $TESTPATH/$OUTPATH
+
+## Global Parameters
+
+TEMPORAL_SLICES=5
+BUCKET_OUTDATED_FLEX=0
+STREAM_TIME=30
+TEMPORAL_UPDATED_INTERVAL=300
+STREAM_CONTROL_STRATEGY=DEFAULT
+MAX_THREADS=64
+
+OLDIFS=$IFS; IFS=',';
+#for config in 60,0 45,15 3,15 30,30 3,30 15,45 1,45 1,59 MS-ADAPT,MS-ADAPT; do
+for config in 55,5 50,10 45,15 40,20 35,25 30,30 25,35 20,40 15,45 10,50 5,55; do
+	set -- $config
+    QOT=$1
+	IOT=$2
+
+	if [ "$QOT" = "MS-ADAPT" ]; then
+		STREAM_CONTROL_STRATEGY=MS-ADAPT
+		QOT=1
+		IOT=1	
+	fi
+
+	./loadFactorExploration.sh $TEMPORAL_SLICES \
+						  $BUCKET_OUTDATED_FLEX \
+						  $STREAM_TIME \
+						  $TEMPORAL_UPDATED_INTERVAL \
+						  $STREAM_CONTROL_STRATEGY \
+						  $MAX_THREADS \
+						  $QOT \
+						  $IOT > $TESTPATH/$OUTPATH/"${QOT}_${IOT}_${BUCKET_OUTDATED_FLEX}_${STREAM_CONTROL_STRATEGY}.out"
+done;
+
+
